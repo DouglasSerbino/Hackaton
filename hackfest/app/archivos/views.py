@@ -41,3 +41,7 @@ def deletedocs(request, id_documento):
 def inicio(request):
 	return render(request,'Publico/inicio.html',{})
 
+def documentacion(request):
+	documento = Documento.objects.all()
+	return render(request,'Publico/documentacion.html', {'documentos':documento})
+

@@ -1,0 +1,81 @@
+{% extends "Base/base.html" %}
+{% block titulo %}
+Documentos de acceso publico
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="container-fluid" >
+	<div class="row">
+		<div class="col-sm-12 col-xs-12">
+			<div class="white-box" >
+				<div class="row row-in">
+					{% if documentos %}
+							{% for documento in documentos  %}
+								<div class="col-lg-3 col-sm-6 row-in-br">
+						<ul class="col-in">
+							<li>
+								<span class="circle circle-md bg-danger"><i class="ti-file"></i></span>
+							</li>
+							<li class="col-last">
+								<h4 class="counter text-right m-t-15">23 puntos</h4>
+							</li>
+							<li class="col-middle">
+								<h4>{{ documento.nombre_documento }}</h4>
+								<h6>{{ documento.descripcion }}</h6>
+							</li>
+						</ul>
+					</div>
+							{% endfor %}
+						{% else %}
+							<h1>No hay documentos para mostrar</h1>
+						{% endif %}
+					
+					<div class="col-lg-3 col-sm-6 row-in-br  b-r-none">
+						<ul class="col-in">
+							<li>
+								<span class="circle circle-md bg-info"><i class="ti-file"></i></span>
+							</li>
+							<li class="col-last">
+								<h4 class="counter text-right m-t-15">149 puntos</h4>
+							</li>
+							<li class="col-middle">
+								<h4>{{ documento.nombre_documento }}</h4>
+								<h6>{{ documento.descripcion }}</h6>
+							</li>
+						</ul>
+					</div>
+					<div class="col-lg-3 col-sm-6 row-in-br">
+						<ul class="col-in">
+							<li>
+								<span class="circle circle-md bg-success"><i class="ti-file"></i></span>
+							</li>
+							<li class="col-last">
+								<h4 class="counter text-right m-t-15">14 puntos</h4>
+							</li>
+							<li class="col-middle">
+								<h4>{{ documento.nombre_documento }}</h4>
+								<h6>{{ documento.descripcion }}</h6>
+							</li>
+						</ul>
+					</div>
+					<div class="col-lg-3 col-sm-6  b-0">
+						<ul class="col-in">
+							<li>
+								<span class="circle circle-md bg-warning"><i class="ti-file"></i></span>
+							</li>
+							<li class="col-last">
+								<h4 class="counter text-right m-t-15">83 puntos</h4>
+							</li>
+							<li class="col-middle">
+								<h4>{{ documento.nombre_documento }}</h4>
+								<h6>{{ documento.descripcion }}</h6>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock contenido %}
