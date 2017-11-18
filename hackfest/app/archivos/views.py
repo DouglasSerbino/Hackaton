@@ -12,6 +12,7 @@ from models import Documento
 
 
 # Create your views here.
+# VISTAS PARA LA PARTE ADMINISTRATIVA
 def documentos(request):
 	documento = Documento.objects.all()
 	if request.method == 'POST':
@@ -33,5 +34,10 @@ def editardocs(request, id_documento):
 
 def deletedocs(request, id_documento):
 	documento = get_object_or_404(Documento, id=id_documento).delete()
-
 	return response("Elemento eliminado")
+
+
+#VISTAS PARTE PUBLICA
+def inicio(request):
+	return render(request,'Publico/inicio.html',{})
+
