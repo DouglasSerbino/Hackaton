@@ -8,74 +8,86 @@ Documentos de acceso publico
 	<div class="row">
 		<div class="col-sm-12 col-xs-12">
 			<div class="white-box" >
+				<h1>Documentos subidos</h1>
 				<div class="row row-in">
 					{% if documentos %}
 							{% for documento in documentos  %}
-								<div class="col-lg-3 col-sm-6 row-in-br">
-						<ul class="col-in">
-							<li>
-								<span class="circle circle-md bg-danger"><i class="ti-file"></i></span>
-							</li>
-							<li class="col-last">
-								<h4 class="counter text-right m-t-15">23 puntos</h4>
-							</li>
-							<li class="col-middle">
-								<h4>{{ documento.nombre_documento }}</h4>
-								<h6>{{ documento.descripcion }}</h6>
-							</li>
-						</ul>
-					</div>
+								<div class="col-lg-3 col-sm-6 row-in-br clearfix">
+									<div class="row" >
+										<ul class="col-in">
+											<li>
+												<span class="circle circle-md bg-danger"><i class="ti-file"></i></span>
+											</li>
+											<li class="col-last">
+												<h4 class="counter text-right m-t-15 noutil">{{ documento.desaprobacion }} Dislike</h4>
+											</li>
+											<li class="col-last">
+												<h4 class="counter text-right m-t-15 util">{{ documento.aprobacion }} Like</h4>
+											</li>
+											<li class="col-md-7">
+												<h4>{{ documento.nombre_documento }}</h4>
+												<h6>{{ documento.descripcion }}</h6>
+											</li>
+										</ul>
+									</div>
+									<div class="row">
+										<ul class="col-in">
+											<li><i class="ti-hand-point-up"></i><button onclick="Like({{ documento.id }})" class="btn-xs btn-info">Util</button></li>
+											<li><i class="ti-hand-point-down "></i><button onclick="Dislike{{ documento.id }}" class="btn-xs btn-danger">No util</button></li>
+										</ul>
+									</div>
+								</div>
 							{% endfor %}
 						{% else %}
 							<h1>No hay documentos para mostrar</h1>
 						{% endif %}
-					
-					<div class="col-lg-3 col-sm-6 row-in-br  b-r-none">
-						<ul class="col-in">
-							<li>
-								<span class="circle circle-md bg-info"><i class="ti-file"></i></span>
-							</li>
-							<li class="col-last">
-								<h4 class="counter text-right m-t-15">149 puntos</h4>
-							</li>
-							<li class="col-middle">
-								<h4>{{ documento.nombre_documento }}</h4>
-								<h6>{{ documento.descripcion }}</h6>
-							</li>
-						</ul>
-					</div>
-					<div class="col-lg-3 col-sm-6 row-in-br">
-						<ul class="col-in">
-							<li>
-								<span class="circle circle-md bg-success"><i class="ti-file"></i></span>
-							</li>
-							<li class="col-last">
-								<h4 class="counter text-right m-t-15">14 puntos</h4>
-							</li>
-							<li class="col-middle">
-								<h4>{{ documento.nombre_documento }}</h4>
-								<h6>{{ documento.descripcion }}</h6>
-							</li>
-						</ul>
-					</div>
-					<div class="col-lg-3 col-sm-6  b-0">
-						<ul class="col-in">
-							<li>
-								<span class="circle circle-md bg-warning"><i class="ti-file"></i></span>
-							</li>
-							<li class="col-last">
-								<h4 class="counter text-right m-t-15">83 puntos</h4>
-							</li>
-							<li class="col-middle">
-								<h4>{{ documento.nombre_documento }}</h4>
-								<h6>{{ documento.descripcion }}</h6>
-							</li>
-						</ul>
-					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
 </div>
 {% endblock contenido %}
+{% block footer_js %}
+{{ block.super }}
+<script>
+	function Like(id){
+
+		$.ajax({
+			url: '/path/to/file',
+			type: 'default GET (Other values: POST)',
+			dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			data: {param1: 'value1'},
+		})
+		.done(function() {
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	}
+
+	function Dislike(id){
+		$.ajax({
+			url: '/path/to/file',
+			type: 'default GET (Other values: POST)',
+			dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+			data: {param1: 'value1'},
+		})
+		.done(function() {
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		
+	}
+</script>
+
+{% endblock footer_js %}
