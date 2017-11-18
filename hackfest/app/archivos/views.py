@@ -10,6 +10,9 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from forms import DocumentoForm
 from models import Documento
 
+from django.http import HttpResponse
+from django.db.models import F
+
 
 # Create your views here.
 # VISTAS PARA LA PARTE ADMINISTRATIVA
@@ -44,4 +47,17 @@ def inicio(request):
 def documentacion(request):
 	documento = Documento.objects.all()
 	return render(request,'Publico/documentacion.html', {'documentos':documento})
+
+def puntuar(request):
+	if request.method == 'POST':
+		if request.POST.get('util'):
+			util = request.POST.get('util')
+			like = Documento.objects.filter(id=util).update(aprobacion=F('aprobacion')+1)
+			return HttpResponse(like)
+		else:
+			noutil = request.POST.get('noutil')
+			dislike = Documento.objects.filter(id=noutil).update(desaprobacion=F('desaprobacion')+1)
+			return HttpResponse(dislike)
+	return HttpResponse()
+	
 

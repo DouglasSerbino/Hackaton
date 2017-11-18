@@ -33,7 +33,7 @@ Documentos de acceso publico
 									<div class="row">
 										<ul class="col-in">
 											<li><i class="ti-hand-point-up"></i><button onclick="Like({{ documento.id }})" class="btn-xs btn-info">Util</button></li>
-											<li><i class="ti-hand-point-down "></i><button onclick="Dislike{{ documento.id }}" class="btn-xs btn-danger">No util</button></li>
+											<li><i class="ti-hand-point-down "></i><button onclick="Dislike({{ documento.id }})" class="btn-xs btn-danger">No util</button></li>
 										</ul>
 									</div>
 								</div>
@@ -49,45 +49,45 @@ Documentos de acceso publico
 {% endblock contenido %}
 {% block footer_js %}
 {{ block.super }}
-<script>
-	function Like(id){
-
+<script type="text/javascript">
+	function Like(util){
 		$.ajax({
-			url: '/path/to/file',
-			type: 'default GET (Other values: POST)',
-			dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-			data: {param1: 'value1'},
+			url: "{% url 'archivos:puntuar' %}",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				util: util,
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
 		})
-		.done(function() {
-			console.log("success");
+		.done(function(info) {
+			alert("Gracias por su puntuacion");
 		})
 		.fail(function() {
-			console.log("error");
+			alert("error");
 		})
-		.always(function() {
-			console.log("complete");
-		});
 		
 	}
 
-	function Dislike(id){
+	function Dislike(noutil){
 		$.ajax({
-			url: '/path/to/file',
-			type: 'default GET (Other values: POST)',
-			dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-			data: {param1: 'value1'},
+			url: "{% url 'archivos:puntuar' %}",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				noutil: noutil,
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
 		})
-		.done(function() {
-			console.log("success");
+		.done(function(info) {
+			alert("Gracias por su puntuacion");
 		})
 		.fail(function() {
-			console.log("error");
+			alert("error");
 		})
-		.always(function() {
-			console.log("complete");
-		});
 		
 	}
+
 </script>
 
 {% endblock footer_js %}
