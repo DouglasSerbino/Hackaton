@@ -1,0 +1,77 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% block head %}
+        {% include "Laip/head.html" %}
+    {% endblock head %}
+    
+    <title>{% block titulo %}Ample Admin Template - The Ultimate Multipurpose admin template{% endblock titulo %}</title>
+    
+    {% block head_css %}
+        {% include "Laip/head_css.html" %}
+    {% endblock head_css %}
+    
+</head>
+
+<body class="fix-header">
+    <!-- ============================================================== -->
+    <!-- Preloader -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Wrapper -->
+    <!-- ============================================================== -->
+    <div id="wrapper">
+
+        {% block navegacion %}
+            {% include "Laip/nav.html" %}
+        {% endblock navegacion %}
+        
+        {% block left_sidebar %}
+            {% include "Laip/left_sidebar.html" %}
+        {% endblock left_sidebar %}
+        
+        <!-- ============================================================== -->
+        <!-- Page Content -->
+        <!-- ============================================================== -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                        {% block contenido %}
+                        {% include "Laip/content.html" %}
+                        {% endblock contenido %}
+                        <!-- /.container-fluid -->
+                    
+                </div>
+            </div>
+
+        {% block right_sidebar %}
+            {% include "Laip/right_sidebar.html" %}
+        {% endblock right_sidebar %}
+       
+        </div>
+        {% block footer %}
+        {% include "Laip/footer.html" %}
+        {% endblock footer %}
+    </div>
+        
+        <!-- ============================================================== -->
+        <!-- End Page Content -->
+        <!-- ============================================================== -->
+    </div>
+    {% block footer_js %}
+        {% include "Laip/footer_js.html" %}
+    {% endblock footer_js %}
+    
+</body>
+
+</html>
