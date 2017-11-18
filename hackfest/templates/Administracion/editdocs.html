@@ -1,0 +1,96 @@
+{% extends "Base/base.html" %}
+{% load staticfiles %}
+
+{% block titulo %}
+Editar documento 
+{% endblock titulo %}
+
+{% block head_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "/" %}plugins/bower_components/dropify/dist/css/dropify.min.css">
+{% endblock head_css %}
+
+{% block contenido %}
+    <div class="container-fluid" >
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="white-box" >
+                    <h3 class="box-title m-b-0">Subida de Archivos</h3>
+                    <p class="text-muted m-b-30">porfavor llene todos los campos requeridos</p>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <span>{{ form.errors }}</span>
+                	<div class="col-md-6" >
+                		<div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.nombre_documento.label }}</label>
+                            {{ form.nombre_documento }}
+                    	</div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.descripcion.label }}</label>
+                            {{ form.descripcion }}
+                        </div>
+                	</div>
+                    
+                	<div class="col-md-6" >
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.archivo.label }}</label>
+                            {{ form.archivo }}
+                        </div>
+                	</div>
+                    <div class="row col-md-offset-4">
+                        <div class="form-group" >
+                            <input type="submit" class="btn btn-warning" value="Guardar Cambios"> 
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}
+
+{% block footer_js %}
+    {{ block.super }}
+    <!-- Dropify -->
+    <!-- jQuery file upload -->
+    <script src="{% static "/" %}plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
+    <script src="{% static "/" %}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Basic
+        $('.dropify').dropify();
+        // Translated
+        $('.dropify-fr').dropify({
+            messages: {
+                default: 'Glissez-déposez un fichier ici ou cliquez',
+                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                remove: 'Supprimer',
+                error: 'Désolé, le fichier trop volumineux'
+            }
+        });
+        // Used events
+        var drEvent = $('#input-file-events').dropify();
+        drEvent.on('dropify.beforeClear', function(event, element) {
+            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        });
+        drEvent.on('dropify.afterClear', function(event, element) {
+            alert('File deleted');
+        });
+        drEvent.on('dropify.errors', function(event, element) {
+            console.log('Has Errors');
+        });
+        var drDestroy = $('#input-file-to-destroy').dropify();
+        drDestroy = drDestroy.data('dropify')
+        $('#toggleDropify').on('click', function(e) {
+            e.preventDefault();
+            if (drDestroy.isDropified()) {
+                drDestroy.destroy();
+            } else {
+                drDestroy.init();
+            }
+        })
+    });
+    </script>
+
+    
+{% endblock footer_js %}
