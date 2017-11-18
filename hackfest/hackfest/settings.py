@@ -25,7 +25,7 @@ SECRET_KEY = '534_2&mr@yt0o7r&xvqq)8ti%(od!k=m*%*&c(5kyw$h=rx3(a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app.archivos',
+    'app.consultas',
+    'app.gamificacion',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'hackfest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,8 +78,13 @@ WSGI_APPLICATION = 'hackfest.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'hackfest',
+        'USER': 'root',
+        'PASSWORD': 's8oESeL5',
+        'PORT': '3306',
+        'HOST': '127.0.0.1',
+
     }
 }
 
@@ -103,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-SV'
 
 TIME_ZONE = 'UTC'
 
@@ -118,3 +126,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Configuracion de subida de archivos
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'static'),
+    os.path.join(BASE_DIR, 'media'),
+    )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+#Configuracion de permisos para restframework
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASES' : [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+
+# }
