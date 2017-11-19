@@ -32,12 +32,15 @@ Documentos de acceso publico
 											</li>
 										</ul>
 									</div>
-									<div class="row">
-										<ul class="col-in">
-											<li><i class="ti-hand-point-up"></i><button onclick="Like({{ documento.id }})" class="btn-xs btn-info">Util</button></li>
-											<li><i class="ti-hand-point-down "></i><button onclick="Dislike({{ documento.id }})" class="btn-xs btn-danger">No util</button></li>
-										</ul>
-									</div>
+									{% if request.user.is_authenticated %}
+										<div class="row">
+											<ul class="col-in">
+												<li><i class="ti-hand-point-up"></i><button onclick="Like({{ documento.id }})" class="btn-xs btn-info">Util</button></li>
+												<li><i class="ti-hand-point-down "></i><button onclick="Dislike({{ documento.id }})" class="btn-xs btn-danger">No util</button></li>
+											</ul>
+										</div>
+									{% endif %}
+									
 								</div>
 							{% endfor %}
 						{% else %}

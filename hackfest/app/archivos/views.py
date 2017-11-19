@@ -10,6 +10,8 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from forms import DocumentoForm
 from models import Documento
 
+from app.gamificacion.models import User
+
 from django.http import HttpResponse
 from django.db.models import F
 

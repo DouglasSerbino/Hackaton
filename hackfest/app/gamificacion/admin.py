@@ -5,7 +5,7 @@ from django.contrib import admin
 from models import User
 
 class UserAdmin(admin.ModelAdmin):
-	list_display=('username','last_name','email',)
+	list_display=('username','nivel','puntuacion','recompensa','last_name','email',)
 
 
 admin.site.register(User,UserAdmin)
