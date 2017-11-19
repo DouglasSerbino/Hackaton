@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'app.archivos',
     'app.consultas',
     'app.gamificacion',
-    'rest_framework'
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

@@ -14,6 +14,7 @@ from app.gamificacion.models import User
 
 from django.http import HttpResponse
 from django.db.models import F
+from django.core import serializers
 
 
 # Create your views here.
@@ -66,11 +67,17 @@ def puntuar(request):
 		if request.POST.get('util'):
 			util = request.POST.get('util')
 			like = Documento.objects.filter(id=util).update(aprobacion=F('aprobacion')+1)
-			return HttpResponse(like)
+			documento = Documento.objects.filter(id=util)
+			response = serializers.serialize("json",documento)
+			return HttpResponse(response,content_type='application/json')
+			
 		else:
 			noutil = request.POST.get('noutil')
 			dislike = Documento.objects.filter(id=noutil).update(desaprobacion=F('desaprobacion')+1)
-			return HttpResponse(dislike)
-	return HttpResponse()
+			documento = Documento.objects.filter(id=noutil)
+			response = serializers.serialize("json",documento)
+			return HttpResponse(response,content_type='application/json')
+
+	pass
 	
 

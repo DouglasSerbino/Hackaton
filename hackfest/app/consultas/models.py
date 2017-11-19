@@ -14,9 +14,9 @@ class Proyecto(models.Model):
 	fondos = models.DecimalField(max_digits = 10, decimal_places=2)
 	like = models.IntegerField()
 	dislike = models.IntegerField()
-	funcionario = models.ForeignKey(User)
+	
 
 class Consulta(models.Model):
 	comentario = models.CharField(max_length=144)
 	proyecto = models.ForeignKey(Proyecto)
-	usuario = models.ForeignKey(User)
+	

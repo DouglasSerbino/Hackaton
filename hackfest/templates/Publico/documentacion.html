@@ -20,10 +20,10 @@ Documentos de acceso publico
 												<span class="circle circle-md bg-danger"><i class="ti-file"></i></span>
 											</li>
 											<li class="col-last">
-												<h4 class="counter text-right m-t-15 noutil">{{ documento.desaprobacion }} Dislike</h4>
+												<h4 class="counter text-right m-t-15 noutil"><span id="dislike">{{ documento.desaprobacion }}</span> Dislike</h4>
 											</li>
 											<li class="col-last">
-												<h4 class="counter text-right m-t-15 util">{{ documento.aprobacion }} Like</h4>
+												<h4 class="counter text-right m-t-15 util"><span id="like">{{ documento.aprobacion }}</span> Like</h4>
 											</li>
 											<li class="col-md-7">
 												
@@ -66,7 +66,8 @@ Documentos de acceso publico
 			},
 		})
 		.done(function(info) {
-			alert("Gracias por su puntuacion");
+			$('#like').html(info[0].fields.aprobacion);
+
 		})
 		.fail(function() {
 			alert("error");
@@ -85,7 +86,8 @@ Documentos de acceso publico
 			},
 		})
 		.done(function(info) {
-			alert("Gracias por su puntuacion");
+			$('#dislike').html(info[0].fields.desaprobacion);
+			
 		})
 		.fail(function() {
 			alert("error");
