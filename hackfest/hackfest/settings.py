@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hackfest',
         'USER': 'root',
-        'PASSWORD': '@jc1996#',
+        'PASSWORD': 's8oESeL5',
         'PORT': '3306',
         'HOST': '127.0.0.1',
 

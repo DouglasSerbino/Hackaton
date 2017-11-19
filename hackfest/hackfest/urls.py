@@ -33,5 +33,3 @@ urlpatterns = [
 
     #NOMBRES DE ESPACIO PARA LAS URLS DEL RESTFULL
     url(r'^gamification/rest/', include('app.restviews.urls', namespace="restfull")),
-
-]
