@@ -80,7 +80,7 @@
             objeto = data[0];
             $('#modalHeader').html("<h3>"+objeto.fields.nombre+"</h3>"+'<button class="btn btn-block btn-success">Descargar Documento</button>');
             $('#modalBody').html(objeto.fields.descripcion+"<p class="+"text-success"+"> Presupuesto:$"+objeto.fields.presupuesto+"</p> <p class="+"text-danger>Gastos Actuales:$"+objeto.fields.gasto+"</p><p class="+"text-info>Fondos Disponibles:$"+objeto.fields.fondos+"</p>");
-           $('#modalFooter').html('<div class="col-md-2"><p><i class="fa fa-hand-o-up" id="like" onclick="votar('+objeto.pk+',0)">'+objeto.fields.like+'</i></p><p><i class="fa fa-hand-o-down" id="dislike" onclick="votar('+objeto.pk+',1)">'+objeto.fields.dislike+'</i></p><i class="ti-email" data-toggle="modal" data-target="#ComenModal" data-whatever="@mdo1"></i></div><div class="col-md-8" id="listaComentarios"></div');
+           $('#modalFooter').html('<div class="col-md-2"><p><i class="fa fa-hand-o-up" id="like" onclick="votar('+objeto.pk+',0)">'+objeto.fields.like+'</i></p><p><i class="fa fa-hand-o-down" id="dislike" onclick="votar('+objeto.pk+',1)">'+objeto.fields.dislike+'</i></p><i class="ti-email" data-toggle="modal" data-target="#ComenModal" data-whatever="@mdo1"></i></div><div class="col-md-8" id="listaComentarios" style = "overflow:scroll; max-height :150px"></div');
            $('#envioComentario').html('<a class="btn btn-block btn-success" onclick="comentar('+objeto.pk+')">Success</a>');
            $.ajax({
                 url: '{% url "listarComentarios" %}',
@@ -93,6 +93,7 @@
                 for (var i = 0; i <data.length; i++) {
                     obj = data[i];
                     $('#listaComentarios').append('<p>usuario:'+obj.fields.usuario+'</p><p>'+obj.fields.comentario+'</p><hr>');
+                    console.log(obj);
                 }
             });
         });
@@ -128,7 +129,20 @@
             },
             type: 'POST'
         }).done(function(data){
-            
+             $.ajax({
+                url: '{% url "listarComentarios" %}',
+                data:{
+                    'proyecto':id,
+                    csrfmiddlewaretoken:'{{ csrf_token }}'
+                },
+                type: 'POST'
+            }).done(function(data){
+                for (var i = 0; i <data.length; i++) {
+                    obj = data[i];
+                    $('#listaComentarios').append('<p>usuario:'+obj.fields.usuario+'</p><p>'+obj.fields.comentario+'</p><hr>');
+                    console.log(obj);
+                }
+            });
         });
         
     }

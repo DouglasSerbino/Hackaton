@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 #from django.contrib.auth.models import User
 # Importando modelos
-from app.gamificacion.models import User, Recompensa
+from app.gamificacion.models import Recompensa
 from django.contrib.auth import get_user_model
 User = get_user_model()
 

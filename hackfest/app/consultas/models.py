@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-from django.contrib.auth.models import User
+from app.gamificacion.models import User
 # Create your models here.
 
 class Proyecto(models.Model):
@@ -13,10 +13,13 @@ class Proyecto(models.Model):
 	gasto = models.DecimalField(max_digits = 10, decimal_places=2)
 	fondos = models.DecimalField(max_digits = 10, decimal_places=2)
 	like = models.IntegerField()
-	dislike = models.IntegerField()
+	dislike = models.IntegerField() 
+	funcionario = models.ForeignKey(User)
 	
 
 class Consulta(models.Model):
 	comentario = models.CharField(max_length=144)
 	proyecto = models.ForeignKey(Proyecto)
+	usuario  = models.ForeignKey(User)
+
 	
