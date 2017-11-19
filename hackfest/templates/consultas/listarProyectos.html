@@ -92,7 +92,7 @@
             }).done(function(data){
                 for (var i = 0; i <data.length; i++) {
                     obj = data[i];
-                    $('#listarComentarios').append('<p>usuario:'+obj.fields.usuario+'</p><p>'+obj.fields.comentario+'</p><hr>');
+                    $('#listaComentarios').append('<p>usuario:'+obj.fields.usuario+'</p><p>'+obj.fields.comentario+'</p><hr>');
                 }
             });
         });
