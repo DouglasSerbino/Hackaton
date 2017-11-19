@@ -1,0 +1,137 @@
+{% extends "Base/base.html" %}
+
+{% block contenido %}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div id="modalHeader" class="modal-header">
+            </div>
+            <div  id="modalBody" class="modal-body">
+                    
+            </div>
+            <div id="modalFooter" class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ComenModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div id="modalHeader" class="modal-header">
+                <h3>Escribe tu comentario acerca del proyecto</h3>
+            </div>
+            <div  id="modalBody" class="modal-body">
+                    <form>
+                        <div class="form-group"> 
+                            <label>{{user.username}}</label>
+                        </div>
+                        <div class="form-group"> 
+                            <input placeholder="Escriba aqui su comentario" id="comentario" type="text">
+                            <div class="col-md-4" id="envioComentario">
+                                
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+	<h1>Proyectos subidos recientemente</h1>
+	{% for proyecto in proyectos %}
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">{{proyecto.nombre}}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" onclick="cargarProyecto({{proyecto.id}})">Informacion</button>
+                    
+                </div>
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            {{proyecto.descripcion|truncatewords:"20"}}
+                        <div class="panel-footer"><b>Funcionario</b> {{proyecto.funcionario}}<br>
+                            <p class="text-success"> Presupuesto:${{proyecto.presupuesto}}</p> 
+                            <p class="text-danger">Gastos Actuales:${{proyecto.gasto}} </p>
+                            <p class="text-info">Fondos Disponibles:${{proyecto.fondos}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    
+		{% empty %}
+		<li>lo lamentamos no hay proyectos</li>
+	{% endfor %}
+
+	<script type="text/javascript">
+
+    function cargarProyecto(proyecto) {
+        $.ajax({
+            url: '{% url "cargarProyecto" %}',
+            data: {
+                'proyecto':proyecto,
+                csrfmiddlewaretoken:'{{ csrf_token }}'
+            },
+            type: 'POST'
+        }).done(function(data){
+            objeto = data[0];
+            $('#modalHeader').html("<h3>"+objeto.fields.nombre+"</h3>"+'<button class="btn btn-block btn-success">Descargar Documento</button>');
+            $('#modalBody').html(objeto.fields.descripcion+"<p class="+"text-success"+"> Presupuesto:$"+objeto.fields.presupuesto+"</p> <p class="+"text-danger>Gastos Actuales:$"+objeto.fields.gasto+"</p><p class="+"text-info>Fondos Disponibles:$"+objeto.fields.fondos+"</p>");
+           $('#modalFooter').html('<div class="col-md-2"><p><i class="fa fa-hand-o-up" id="like" onclick="votar('+objeto.pk+',0)">'+objeto.fields.like+'</i></p><p><i class="fa fa-hand-o-down" id="dislike" onclick="votar('+objeto.pk+',1)">'+objeto.fields.dislike+'</i></p><i class="ti-email" data-toggle="modal" data-target="#ComenModal" data-whatever="@mdo1"></i></div><div class="col-md-8" id="listaComentarios"></div');
+           $('#envioComentario').html('<a class="btn btn-block btn-success" onclick="comentar('+objeto.pk+')">Success</a>');
+           $.ajax({
+                url: '{% url "listarComentarios" %}',
+                data:{
+                    'proyecto':objeto.pk,
+                    csrfmiddlewaretoken:'{{ csrf_token }}'
+                },
+                type: 'POST'
+            }).done(function(data){
+                for (var i = 0; i <data.length; i++) {
+                    obj = data[i];
+                    $('#listarComentarios').append('<p>usuario:'+obj.fields.usuario+'</p><p>'+obj.fields.comentario+'</p><hr>');
+                }
+            });
+        });
+    }
+
+    function votar(id,opc){
+        $.ajax({
+            url: '{% url "votacionProyecto" %}',
+            data:{
+                 'proyecto':id,
+                 'opc':opc,
+                csrfmiddlewaretoken:'{{ csrf_token }}'
+            },
+            type: 'POST'
+        }).done(function(data){
+            objeto = data[0];
+            $('#like').html(objeto.fields.like);
+            $('#dislike').html(objeto.fields.dislike);
+
+        });
+    }
+
+    function comentar(id){
+        var comentario = $('#comentario').val();
+        $.ajax({
+            url: '{% url "comentarProyecto" %}',
+            data:{
+                'proyecto':id,
+                'comentario':comentario,
+                'user':'{{user.id}}',
+                csrfmiddlewaretoken:'{{ csrf_token }}'
+
+            },
+            type: 'POST'
+        }).done(function(data){
+            
+        });
+        
+    }
+	</script>	
+{% endblock contenido %}
+
