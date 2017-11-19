@@ -18,12 +18,14 @@ from django.contrib import admin
 
 from app.archivos import views 
 
-
 urlpatterns = [
+    #URL DE LAS AREAS PUBLICAS DE LA APLICACION
 	url(r'^$', views.inicio, name="inicio"),
     url(r'^documentos/', views.documentacion, name="documentacion"),
 
     #NOMBRES DE ESPACIO DE URLS ABSOLUTAS DE LAS APPS
     url(r'^admin/', admin.site.urls),
     url(r'^administracion/', include('app.archivos.urls', namespace="archivos")),
+    url(r'', include('app.gamificacion.urls', namespace='gamificacion')),
+
 ]

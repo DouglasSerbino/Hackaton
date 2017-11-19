@@ -1,0 +1,28 @@
+{% extends "Base/base.html" %}
+	
+{% block titulo %}Perfil de {{user.first_name}}{% endblock titulo %}
+{% block contenido %}
+
+<div class="row">
+	<div class="col-xs-12 col-md-6">
+	<h1 class="text-center">Informacion del Usuario</h1>
+		<p>Perfil:</p><br>
+		<p>Nombre: {{ user.first_name }}</p>
+		<p>Apellidos: {{ user.last_name }}</p>
+		<p>Usuario: {{ user.username }}</p>
+		<p>Nivel: {{ perfil.nivel }}</p>
+	</div>
+	<div class="col-xs-12 col-md-6">
+		<h1 class="text-center">Datos:</h1><br>
+		<h3>Logros obtenidos:</h3>
+		{% if perfil.logros_id %}
+			{% for logro in perfil.logros %}
+				<p>{{ logro }}</p>
+			{% endfor %}
+		{% else %}
+			<p>Aun no tienes logros</p>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock contenido %}
