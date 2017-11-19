@@ -7,4 +7,5 @@ from app.gamificacion import views
 # URLs para la app Gamificacion
 urlpatterns = [
 	url(r'^registro/$', views.registro, name='registro' ),
+	url(r'^perfil/$', views.perfil, name='perfil'),
 ]

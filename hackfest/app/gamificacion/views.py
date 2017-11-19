@@ -5,7 +5,8 @@ from django.shortcuts import render, redirect
 # Importando al modelo User de Django
 from django.contrib.auth import login, authenticate
 #from django.contrib.auth.models import User
-
+# Importando modelos
+from app.gamificacion.models import User, Recompensa
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -13,7 +14,7 @@ from forms import SignUpForm
 # Importando modelos de la app gamificacion
 
 # Create your views here.
-# Vista: Principal
+# Vista: Registro
 # Objetivo: Brindar el registro del usuario y su avance en la aplicacion web
 # Autor: Kendal Sosa (kendalalfonso37)
 # Revisado por: Douglas Serbino (douglasserbino)
@@ -30,3 +31,10 @@ def registro(request):
 	else:
 		form = SignUpForm()
 	return render(request, 'Usuarios/users.html', {'form': form})
+
+# Vista: Perfil
+# Objetivo: brindar la informacion del usuario y su avance
+# Autor: Kendal Sosa (kendalalfonso37)
+def perfil(request):
+
+	return render(request, 'Gamificacion/principal.html')
