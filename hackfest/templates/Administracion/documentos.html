@@ -1,0 +1,206 @@
+{% extends "Base/base.html" %}
+
+{% load staticfiles %}
+
+{% block titulo %}
+	Carga de documentos
+{% endblock titulo %}
+
+{% block head_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "/" %}plugins/bower_components/dropify/dist/css/dropify.min.css">
+    <link href="{% static "/" %}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+{% endblock head_css %}
+
+{% block contenido %}
+    <div class="container-fluid" >
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="white-box" >
+                    <h3 class="box-title m-b-0">Subida de Archivos</h3>
+                    <p class="text-muted m-b-30">porfavor llene todos los campos requeridos</p>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <span>{{ form.errors }}</span>
+                	<div class="col-md-6" >
+                		<div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.nombre_documento.label }}</label>
+                            {{ form.nombre_documento }}
+                    	</div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.descripcion.label }}</label>
+                            {{ form.descripcion }}
+                        </div>
+                	</div>
+                    
+                	<div class="col-md-6" >
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.archivo.label }}</label>
+                            {{ form.archivo }}
+                        </div>
+                	</div>
+                    <div class="row col-md-offset-4">
+                        <div class="form-group" >
+                            <input type="submit" class="btn btn-info" value="Cargar archivos"> 
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Archivos</h3>
+                            <p class="text-muted m-b-30">Documentos subidos</p>
+                            <div class="table-responsive">
+                                <table id="myTable" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre Documento</th>
+                                            <th>Descripcion</th>
+                                            <th>Archivo</th>
+                                            <th>Fecha subida</th>
+                                            <th>Fecha Actualizacion</th>
+                                            <th>Accion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for document in documento  %}
+                                            <tr>
+                                            <td>{{ document.nombre_documento }}</td>
+                                            <td>{{ document.descripcion }}</td>
+                                            <td><a href="{% static "" %}{{ document.archivo }}">{{ document.nombre_documento }}</a></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <a href="{% url 'archivos:editar_documentos' document.id %}" class="btn btn-warning">Editar</a>
+                                                <button type="button" onclick="eliminar({{ document.id }})" class="btn btn-danger">Eliminar</button>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endblock contenido %}
+
+{% block footer_js %}
+    {{ block.super }}
+    <!-- Dropify -->
+    <!-- jQuery file upload -->
+    <script src="{% static "/" %}plugins/bower_components/dropify/dist/js/dropify.min.js"></script>
+    <script src="{% static "/" %}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Basic
+        $('.dropify').dropify();
+        // Translated
+        $('.dropify-fr').dropify({
+            messages: {
+                default: 'Glissez-déposez un fichier ici ou cliquez',
+                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                remove: 'Supprimer',
+                error: 'Désolé, le fichier trop volumineux'
+            }
+        });
+        // Used events
+        var drEvent = $('#input-file-events').dropify();
+        drEvent.on('dropify.beforeClear', function(event, element) {
+            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        });
+        drEvent.on('dropify.afterClear', function(event, element) {
+            alert('File deleted');
+        });
+        drEvent.on('dropify.errors', function(event, element) {
+            console.log('Has Errors');
+        });
+        var drDestroy = $('#input-file-to-destroy').dropify();
+        drDestroy = drDestroy.data('dropify')
+        $('#toggleDropify').on('click', function(e) {
+            e.preventDefault();
+            if (drDestroy.isDropified()) {
+                drDestroy.destroy();
+            } else {
+                drDestroy.init();
+            }
+        })
+    });
+
+    //Funcion del dataTable
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+        $(document).ready(function() {
+            var table = $('#example').DataTable({
+                "columnDefs": [{
+                    "visible": false,
+                    "targets": 2
+                }],
+                "order": [
+                    [2, 'asc']
+                ],
+                "displayLength": 25,
+                "drawCallback": function(settings) {
+                    var api = this.api();
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var last = null;
+                    api.column(2, {
+                        page: 'current'
+                    }).data().each(function(group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                            last = group;
+                        }
+                    });
+                }
+            });
+            // Order by the grouping
+            $('#example tbody').on('click', 'tr.group', function() {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                    table.order([2, 'desc']).draw();
+                } else {
+                    table.order([2, 'asc']).draw();
+                }
+            });
+        });
+    });
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+
+
+    function eliminar(idd){
+        $.ajax({
+            url: "{% url 'archivos:eliminar' %}",
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                idd: idd,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+        })
+        .done(function(info) {
+            alert("Documento eliminado correctamente");
+            $('#myTable').DataTable();
+            var table = $('#example').DataTable().ajax.reload();
+        })
+        .fail(function() {
+            alert("error");
+        })
+    
+    }
+
+    </script>
+
+    
+{% endblock footer_js %}

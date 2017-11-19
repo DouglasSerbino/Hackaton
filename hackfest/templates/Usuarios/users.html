@@ -1,0 +1,62 @@
+{% extends "Base/base.html" %}
+
+{% block titulo %}
+	Registro
+{% endblock titulo %}
+
+{% block contenido %}
+	<div class="container-fluid" >
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="white-box" >
+                    <h3 class="box-title m-b-0">Registro de usuarios</h3>
+                    <p class="text-muted m-b-30">porfavor llene todos los campos requeridos</p>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <span>{{ form.errors }}</span>
+                	<div class="col-md-6" >
+                		<div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.username.label }}</label>
+                            {{ form.username }}
+                    	</div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nombre</label>
+                            {{ form.first_name }}
+                        </div>
+                	</div>
+                    
+                	<div class="col-md-6" >
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Apellido</label>
+                            {{ form.last_name }}
+                        </div>
+                	</div>
+                    <div class="col-md-6" >
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.email.label }}</label>
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.password1.label }}</label>
+                            {{ form.password1 }}
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{ form.password2.label }}</label>
+                            {{ form.password2 }}
+                        </div>
+                    </div>
+                    <div class="row col-md-offset-4">
+                        <div class="form-group" >
+                            <input type="submit" class="btn btn-info" value="Registrarse"> 
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        </div>
+{% endblock contenido %}

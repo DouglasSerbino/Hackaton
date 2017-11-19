@@ -1,0 +1,98 @@
+{% extends "Base/base.html" %}
+{% load staticfiles %}
+{% block titulo %}
+Documentos de acceso publico
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="container-fluid" >
+	<div class="row">
+		<div class="col-sm-12 col-xs-12">
+			<div class="white-box" >
+				<h1>Documentos subidos</h1>
+				<div class="row row-in">
+					{% if documentos %}
+							{% for documento in documentos  %}
+								<div class="col-lg-3 col-sm-6 row-in-br clearfix">
+									<div class="row" >
+										<ul class="col-in">
+											<li>
+												<span class="circle circle-md bg-danger"><i class="ti-file"></i></span>
+											</li>
+											<li class="col-last">
+												<h4 class="counter text-right m-t-15 noutil">{{ documento.desaprobacion }} Dislike</h4>
+											</li>
+											<li class="col-last">
+												<h4 class="counter text-right m-t-15 util">{{ documento.aprobacion }} Like</h4>
+											</li>
+											<li class="col-md-7">
+												
+												<h4><a href="{% static "" %}{{ documento.archivo }}">{{ documento.nombre_documento }}</a></h4>
+												<h6>{{ documento.descripcion }}</h6>
+											</li>
+										</ul>
+									</div>
+									{% if request.user.is_authenticated %}
+										<div class="row">
+											<ul class="col-in">
+												<li><i class="ti-hand-point-up"></i><button onclick="Like({{ documento.id }})" class="btn-xs btn-info">Util</button></li>
+												<li><i class="ti-hand-point-down "></i><button onclick="Dislike({{ documento.id }})" class="btn-xs btn-danger">No util</button></li>
+											</ul>
+										</div>
+									{% endif %}
+									
+								</div>
+							{% endfor %}
+						{% else %}
+							<h1>No hay documentos para mostrar</h1>
+						{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock contenido %}
+{% block footer_js %}
+{{ block.super }}
+<script type="text/javascript">
+	function Like(util){
+		$.ajax({
+			url: "{% url 'archivos:puntuar' %}",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				util: util,
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+		})
+		.done(function(info) {
+			alert("Gracias por su puntuacion");
+		})
+		.fail(function() {
+			alert("error");
+		})
+		
+	}
+
+	function Dislike(noutil){
+		$.ajax({
+			url: "{% url 'archivos:puntuar' %}",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				noutil: noutil,
+				csrfmiddlewaretoken: '{{ csrf_token }}'
+			},
+		})
+		.done(function(info) {
+			alert("Gracias por su puntuacion");
+		})
+		.fail(function() {
+			alert("error");
+		})
+		
+	}
+
+</script>
+
+{% endblock footer_js %}
