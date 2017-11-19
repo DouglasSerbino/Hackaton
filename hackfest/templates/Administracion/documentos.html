@@ -77,8 +77,8 @@
                                             <td></td>
                                             <td></td>
                                             <td>
-                                                <a href="{% url 'archivos:editar_documentos' document.id %}" class="btn-xs btn-warning">Editar</a>
-                                                <button type="button" onclick="eliminar({{ document.id }})" class="btn-xs btn-danger">Eliminar</button>
+                                                <a href="{% url 'archivos:editar_documentos' document.id %}" class="btn btn-warning">Editar</a>
+                                                <button type="button" onclick="eliminar({{ document.id }})" class="btn btn-danger">Eliminar</button>
                                             </td>
                                         </tr>
                                         {% endfor %}
