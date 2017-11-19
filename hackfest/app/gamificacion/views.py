@@ -1,20 +1,32 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # Importando al modelo User de Django
-from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+#from django.contrib.auth.models import User
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
+from forms import SignUpForm
 # Importando modelos de la app gamificacion
-from app.gamificacion.models import *
 
 # Create your views here.
-
 # Vista: Principal
-# Objetivo: Brindar la informacion del usuario y su avance en la aplicacion web
+# Objetivo: Brindar el registro del usuario y su avance en la aplicacion web
 # Autor: Kendal Sosa (kendalalfonso37)
-def principal(request):
-	if request.user.is_authenticated():
-		user = request.user
-		perfil = PerfilUsuario.objects.filter(usuario__username = request.user)
-
-	return render(request, 'Gamificacion/principal.html', {'perfil':perfil})
+# Revisado por: Douglas Serbino (douglasserbino)
+def registro(request):
+	if request.method == 'POST':
+		form = SignUpForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+			raw_password = form.cleaned_data.get('password1')
+			user = authenticate(username=username, password=raw_password)
+			login(request, user)
+			return redirect('/')
+	else:
+		form = SignUpForm()
+	return render(request, 'Usuarios/users.html', {'form': form})

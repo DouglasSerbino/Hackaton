@@ -26,6 +26,6 @@ urlpatterns = [
     #NOMBRES DE ESPACIO DE URLS ABSOLUTAS DE LAS APPS
     url(r'^admin/', admin.site.urls),
     url(r'^administracion/', include('app.archivos.urls', namespace="archivos")),
-    url(r'', include('app.gamificacion.urls', namespace='gamificacion')),
+    url(r'^', include('app.gamificacion.urls', namespace='gamificacion')),
 
 ]

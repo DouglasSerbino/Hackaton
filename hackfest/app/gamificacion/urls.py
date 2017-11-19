@@ -6,5 +6,5 @@ from app.gamificacion import views
 
 # URLs para la app Gamificacion
 urlpatterns = [
-    url(r'^gamificacion/index/$', views.principal, name='principal'),
+	url(r'^registro/$', views.registro, name='registro' ),
 ]
