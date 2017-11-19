@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "Index/" %}vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static "Index/" %}css/one-page-wonder.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">StackSivar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Acerca</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Servicios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'documentacion' %}">Documentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contactanos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead">
+      <div class="overlay">
+        <div class="container">
+          <h1 class="display-1 text-white">Una herramienta</h1>
+          <h2 class="display-4 text-white">Para la informacion publica</h2>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="{% static "imagenes/read.jpg" %}" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <h2 class="display-4">Encuentra documentos de las diferentes instituciones gubernamentales</h2>
+              <p>Documentos legislativos, Reformas constitucionales, Rendicion de cuentas de las instituciones gubernamentales, leyes y otros documentos sobre las diferentes instituciones gubernamentales del pais para que puedas consultarlos en cualquier momentoy en cualquier lugar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="{% static "imagenes/consulta.jpg" %}" alt="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-5">
+              <h2 class="display-4">Realiza tus consultas o dudas a los funcionarios</h2>
+              <p>¿Quieres saber sobre algun proyecto o licitacion que se esta realizando actualmente? Realiza tu consulta a los funcionarios publicos designados al proyecto para aclarar tus dudas o inquietudes, o realizales una sugerencia al trabajo que estan realizando actualmente. Participar en la toma de deciciones ahora es mas facil y fomenta un proceso mas transparente de democracia en el pais.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="{% static "imagenes/rank.jpeg" %}" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <h2 class="display-4">Puntua los documentos que encuentres!!</h2>
+              <p>Si te encuentras a favor de una ley, documento constitucional o algun otro documento que rinda la institucion; puedes calificarlo para que manifiestes asi tu aprobacion al trabajo que realizan las diferentes instituciones gubernamentales del pais.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="footer text-center text-white"> 2017 &copy; Hackaton El Salvador</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static "Index/" %}vendor/jquery/jquery.min.js"></script>
+    <script src="{% static "Index/" %}vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
