@@ -28,4 +28,8 @@ urlpatterns = [
     url(r'^administracion/', include('app.archivos.urls', namespace="archivos")),
     url(r'^', include('app.gamificacion.urls', namespace='gamificacion')),
 
+    #NOMBRES DE ESPACIO PARA LAS URLS DEL RESTFULL
+    url(r'^gamification/rest/', include('app.restviews.urls', namespace="restfull")),
+
+
 ]

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app.archivos',
     'app.consultas',
     'app.gamificacion',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -137,12 +138,12 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 #Configuracion de permisos para restframework
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASES' : [
-#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-#     ]
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASES' : [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 
-# }
+}
 
 
 # Constantes para la configuracion del Usuario
