@@ -147,8 +147,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Constantes para la configuracion del Usuario
 
-# AUTH_USER_MODEL = 'gamificacion.Usuario'
+AUTH_USER_MODEL = 'gamificacion.User'
 
-LOGIN_URL = '/accounts/login/'
+#LOGIN_URL = '/accounts/login/'
 
-LOGIN_REDIRECT_URL = '/gamificacion/index/'
+#LOGIN_REDIRECT_URL = '/gamificacion/index/'
