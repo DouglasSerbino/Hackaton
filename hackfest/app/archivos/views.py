@@ -35,9 +35,11 @@ def editardocs(request, id_documento):
 		return HttpResponseRedirect(reverse('archivos:principal'))
 	return render(request, 'Administracion/editdocs.html', {'form': form}) 
 
-def deletedocs(request, id_documento):
-	documento = get_object_or_404(Documento, id=id_documento).delete()
-	return response("Elemento eliminado")
+def deletedocs(request):
+	if request.method == 'POST':
+		idd = request.POST.get('idd')
+		documento = get_object_or_404(Documento, id=idd).delete()
+	return HttpResponse(idd)
 
 
 #VISTAS PARTE PUBLICA

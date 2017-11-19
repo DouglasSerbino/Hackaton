@@ -78,7 +78,7 @@
                                             <td></td>
                                             <td>
                                                 <a href="{% url 'archivos:editar_documentos' document.id %}" class="btn-xs btn-warning">Editar</a>
-                                                <button type="button" class="btn-xs btn-danger">Eliminar</button>
+                                                <button type="button" onclick="eliminar({{ document.id }})" class="btn-xs btn-danger">Eliminar</button>
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -177,6 +177,29 @@
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
+
+
+    function eliminar(idd){
+        $.ajax({
+            url: "{% url 'archivos:eliminar' %}",
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                idd: idd,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+        })
+        .done(function(info) {
+            alert("Documento eliminado correctamente");
+            $('#myTable').DataTable();
+            var table = $('#example').DataTable().ajax.reload();
+        })
+        .fail(function() {
+            alert("error");
+        })
+    
+    }
+
     </script>
 
     

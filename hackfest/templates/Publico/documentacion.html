@@ -1,4 +1,5 @@
 {% extends "Base/base.html" %}
+{% load staticfiles %}
 {% block titulo %}
 Documentos de acceso publico
 {% endblock titulo %}
@@ -25,7 +26,8 @@ Documentos de acceso publico
 												<h4 class="counter text-right m-t-15 util">{{ documento.aprobacion }} Like</h4>
 											</li>
 											<li class="col-md-7">
-												<h4>{{ documento.nombre_documento }}</h4>
+												
+												<h4><a href="{% static "" %}{{ documento.archivo }}">{{ documento.nombre_documento }}</a></h4>
 												<h6>{{ documento.descripcion }}</h6>
 											</li>
 										</ul>
